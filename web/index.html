@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>XPath / XSLT Lab</title>
+  <meta name="description" content="Testez vos expressions XPath 3.1 et feuilles XSLT 3.0 avec SaxonJS">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%232563eb'/><text x='16' y='22' font-family='monospace' font-size='15' font-weight='700' fill='white' text-anchor='middle'>/&gt;</text></svg>">
+  <link rel="stylesheet" href="./src/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo" aria-hidden="true">/&gt;</span>
+      <div>
+        <h1>XPath / XSLT Lab</h1>
+        <p class="tagline">SaxonJS · XPath 3.1 · XSLT 3.0</p>
+      </div>
+    </div>
+
+    <div class="file-bar">
+      <label for="file-select" class="label">Document</label>
+      <select id="file-select" aria-label="Document XML"></select>
+      <span id="file-meta" class="file-meta"></span>
+      <a id="file-view" class="btn ghost" target="_blank" rel="noopener" title="Voir le XML source">Voir</a>
+      <a id="file-download" class="btn ghost" title="Télécharger le fichier">Télécharger</a>
+      <button id="upload-btn" class="btn" type="button">Téléverser un XML…</button>
+      <input id="upload-input" type="file" accept=".xml,application/xml,text/xml" hidden>
+      <button id="delete-btn" class="btn danger" type="button" hidden>Supprimer</button>
+      <button id="admin-btn" class="btn ghost small" type="button" title="Mode administrateur">Admin</button>
+    </div>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <section class="panel">
+        <div class="panel-head">
+          <h2>Structure</h2>
+          <input id="structure-filter" type="search" placeholder="Filtrer…" aria-label="Filtrer la structure">
+        </div>
+        <p class="hint">Cliquez sur un chemin pour l'insérer dans l'éditeur.</p>
+        <div id="structure" class="structure"><p class="muted">Chargement…</p></div>
+      </section>
+      <section class="panel">
+        <div class="panel-head"><h2>Exemples</h2></div>
+        <div id="examples" class="examples"></div>
+      </section>
+    </aside>
+
+    <main class="workspace">
+      <nav class="tabs" role="tablist">
+        <button class="tab" role="tab" data-tab="xpath" aria-selected="true">XPath</button>
+        <button class="tab" role="tab" data-tab="xslt" aria-selected="false">XSLT</button>
+      </nav>
+
+      <section id="tab-xpath" class="tab-panel" role="tabpanel">
+        <div class="editor-wrap">
+          <div id="xpath-editor" class="editor xpath"></div>
+        </div>
+        <div class="toolbar">
+          <button id="xpath-run" class="btn primary" type="button">Évaluer <kbd>Ctrl</kbd><kbd>↵</kbd></button>
+          <select id="history" aria-label="Historique">
+            <option value="">Historique…</option>
+          </select>
+          <details class="ns-box">
+            <summary>Espaces de noms</summary>
+            <p class="hint">Les préfixes déclarés à la racine du document sont liés automatiquement.
+              Ajoutez-en d'autres, un par ligne : <code>prefixe=uri</code></p>
+            <div id="ns-auto" class="ns-auto"></div>
+            <textarea id="ns-input" rows="3" spellcheck="false" placeholder="dc=http://purl.org/dc/elements/1.1/"></textarea>
+          </details>
+          <span id="xpath-status" class="status" aria-live="polite"></span>
+        </div>
+        <div id="xpath-result" class="result"></div>
+      </section>
+
+      <section id="tab-xslt" class="tab-panel" role="tabpanel" hidden>
+        <div class="editor-wrap">
+          <div id="xslt-editor" class="editor xslt"></div>
+        </div>
+        <div class="toolbar">
+          <button id="xslt-run" class="btn primary" type="button">Transformer <kbd>Ctrl</kbd><kbd>↵</kbd></button>
+          <button id="xslt-reset" class="btn ghost" type="button">Exemple de départ</button>
+          <span class="hint inline">Appliquée au document sélectionné.</span>
+          <span id="xslt-status" class="status" aria-live="polite"></span>
+        </div>
+        <div id="xslt-result" class="result"></div>
+      </section>
+    </main>
+  </div>
+
+  <div id="toast" class="toast" role="status" hidden></div>
+
+  <footer class="footer">
+    Moteur : <a href="https://www.saxonica.com/saxon-js/" target="_blank" rel="noopener">SaxonJS</a> © Saxonica Ltd.
+    · Données : <a href="https://www.dbis.informatik.uni-goettingen.de/Mondial/" target="_blank" rel="noopener">Mondial</a> (Wolfgang May, Univ. Göttingen)
+  </footer>
+
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>

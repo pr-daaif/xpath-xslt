@@ -1,0 +1,31 @@
+{
+  "name": "xpath-xslt-lab",
+  "version": "1.0.0",
+  "description": "Bac à sable XPath 3.1 / XSLT 3.0 (SaxonJS) pour les étudiants",
+  "scripts": {
+    "dev": "concurrently -k -n api,web -c blue,green \"node --watch-path=server server/index.js\" \"vite\"",
+    "build": "vite build",
+    "start": "node server/index.js"
+  },
+  "license": "UNLICENSED",
+  "dependencies": {
+    "express": "^5.3.0",
+    "express-rate-limit": "^8.7.1",
+    "multer": "^2.4.0",
+    "saxon-js": "^2.7.0"
+  },
+  "devDependencies": {
+    "@codemirror/lang-xml": "^6.1.0",
+    "@codemirror/language": "^6.13.1",
+    "@codemirror/state": "^6.7.6",
+    "@codemirror/view": "^6.43.15",
+    "@lezer/highlight": "^1.2.5",
+    "codemirror": "^6.0.2",
+    "concurrently": "^10.0.6",
+    "vite": "^8.3.4"
+  },
+  "private": true,
+  "engines": {
+    "node": ">=22"
+  }
+}

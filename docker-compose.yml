@@ -1,0 +1,27 @@
+services:
+  xpath-lab:
+    build: .
+    image: xpath-xslt-lab
+    restart: unless-stopped
+    # Pas de port publié : le trafic arrive par le reverse proxy (Traefik de Dokploy), sur le port 3000
+    expose:
+      - "3000"
+    environment:
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:?Définissez ADMIN_PASSWORD dans le fichier .env}
+      TRUST_PROXY: ${TRUST_PROXY:-1}
+      POOL_SIZE: ${POOL_SIZE:-4}
+      EVAL_TIMEOUT_MS: ${EVAL_TIMEOUT_MS:-10000}
+      MAX_UPLOAD_MB: ${MAX_UPLOAD_MB:-5}
+    volumes:
+      - xpath-data:/app/data
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    mem_limit: 4g
+
+volumes:
+  xpath-data:
